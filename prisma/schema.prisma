@@ -30,7 +30,12 @@ model Task {
   updatedBy           String
 
   title               String
-  status              String
+  status              TaskStatus
   taskListId          Int
   taskList            TaskList      @relation(fields: [taskListId], references: [id])
+}
+
+enum TaskStatus {
+  IN_PROGRESS
+  DONE
 }

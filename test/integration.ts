@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { GraphQLSchema, graphql } from 'graphql';
 import { buildAppSchema } from '../src/schema';
 import { context } from '../src/context';
+import { Maybe } from 'type-graphql';
 
 describe('brikllo', () => {
   let schema: GraphQLSchema;
@@ -11,42 +12,98 @@ describe('brikllo', () => {
     schema = await buildAppSchema();
   });
 
-  describe('taskList', () => {
-    it('should return data as expected', async () => {
-      const query = `
-        query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
-          taskLists(input: $input) {
-            id
-            title
-            tasks(input: $tasksInput2) {
-              id
-              title
-            }
-          }
-        }
-      `;
+  describe('taskLists', () => {
+    type TestSchemaOptions = {
+      query: string;
+      variables: Maybe<{ [key: string]: unknown }>;
+      expectedResponse: string;
+    };
 
-      const variables = {
-        input: {
-          id: 1,
-        },
-        tasksInput2: {
-          status: 'InProgress',
-        },
-      };
-
+    const testSchema = async (options: TestSchemaOptions) => {
       const response = await graphql(
         schema,
-        query,
+        options.query,
         undefined,
         context,
-        variables,
+        options.variables,
       );
 
-      expect(true).to.equal(true);
-      expect(response.errors).to.be.undefined;
-      expect(response.data?.taskLists).to.have.lengthOf(1);
-      expect(response.data?.taskLists[0]?.tasks).to.have.lengthOf(1);
+      expect(response).to.deep.equal(JSON.parse(options.expectedResponse));
+    };
+
+    describe('should return data as expected', async () => {
+      it('case 1', async () => {
+        await testSchema({
+          query: `
+            query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
+              taskLists(input: $input) {
+                id
+                title
+                tasks(input: $tasksInput2) {
+                  id
+                  title
+                  status
+                }
+              }
+            }
+          `,
+          variables: {
+            input: {
+              id: 1,
+            },
+            tasksInput2: {
+              status: 'IN_PROGRESS',
+            },
+          },
+          expectedResponse: `
+            {
+              "data": {
+                "taskLists": [
+                  {
+                    "id": "1",
+                    "title": "Brikllo",
+                    "tasks": [
+                      {
+                        "id": "3",
+                        "title": "Connect to DB",
+                        "status": "IN_PROGRESS"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          `,
+        });
+      });
+
+      it('case 2', async () => {
+        await testSchema({
+          query: `
+            query TaskLists($input: TaskListQueryInput!) {
+              taskLists(input: $input) {
+                id
+                title
+              }
+            }
+          `,
+          variables: {
+            input: { id: 1 },
+          },
+          expectedResponse: `
+            {
+              "data": {
+                "taskLists": [
+                  {
+                    "id": "1",
+                    "title": "Brikllo"
+                  }
+                ]
+              }
+            }
+          `,
+        });
+      });
     });
   });
 });

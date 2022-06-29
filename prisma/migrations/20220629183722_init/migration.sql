@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "TaskStatus" AS ENUM ('IN_PROGRESS', 'DONE');
+
 -- CreateTable
 CREATE TABLE "TaskList" (
     "id" SERIAL NOT NULL,
@@ -18,7 +21,7 @@ CREATE TABLE "Task" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "updatedBy" TEXT NOT NULL,
     "title" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" "TaskStatus" NOT NULL,
     "taskListId" INTEGER NOT NULL,
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")

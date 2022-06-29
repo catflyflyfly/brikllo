@@ -1,6 +1,5 @@
 import 'reflect-metadata';
-import { PrismaClient } from '@prisma/client';
-import { TaskStatus } from '../src/models';
+import { PrismaClient, TaskStatus } from '@prisma/client';
 const prisma = new PrismaClient();
 
 const seeder = 'seeder';
@@ -24,21 +23,21 @@ async function main() {
             createdBy,
             updatedBy,
             title: 'Create GraphQL Server',
-            status: TaskStatus[TaskStatus.DONE],
+            status: TaskStatus.DONE,
           },
           {
             id: 2,
             createdBy,
             updatedBy,
             title: 'Design mock APIs',
-            status: TaskStatus[TaskStatus.DONE],
+            status: TaskStatus.DONE,
           },
           {
             id: 3,
             createdBy,
             updatedBy,
             title: 'Connect to DB',
-            status: TaskStatus[TaskStatus.IN_PROGRESS],
+            status: TaskStatus.IN_PROGRESS,
           },
         ],
       },
