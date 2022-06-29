@@ -8,7 +8,6 @@ export class TaskList {
   @Field(() => String)
   title: string;
 
-  @Field(() => [Task])
   tasks: Task[];
 
   constructor(id: number, title: string, tasks: Task[]) {
