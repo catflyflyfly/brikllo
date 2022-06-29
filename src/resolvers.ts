@@ -1,5 +1,5 @@
 import { Ctx, Query, Resolver } from 'type-graphql';
-import { Context } from './app';
+import { Context } from './context';
 import { TaskList } from './models';
 
 @Resolver(TaskList)

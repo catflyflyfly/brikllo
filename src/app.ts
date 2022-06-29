@@ -1,10 +1,13 @@
 import { ApolloServer } from 'apollo-server';
 import 'reflect-metadata';
 import * as tq from 'type-graphql';
-import { Task, TaskList } from './models';
+import { context } from './context';
+import { TaskStatus } from './models';
 import { TaskListResolver } from './resolvers';
 
 export const app = async () => {
+  registerAllEnum();
+
   const schema = await tq.buildSchema({
     resolvers: [TaskListResolver],
     scalarsMap: [],
@@ -16,15 +19,8 @@ export const app = async () => {
   );
 };
 
-export interface Context {
-  taskLists: TaskList[];
-}
-
-const context = {
-  taskLists: [
-    new TaskList(1, 'Brikllo', [
-      new Task(1, 'Design mock APIs'),
-      new Task(2, 'Connect to DB'),
-    ]),
-  ],
+const registerAllEnum = () => {
+  tq.registerEnumType(TaskStatus, {
+    name: 'TaskStatus',
+  });
 };

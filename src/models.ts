@@ -26,8 +26,17 @@ export class Task {
   @Field(() => String)
   title: string;
 
-  constructor(id: number, title: string) {
+  @Field(() => TaskStatus)
+  status: TaskStatus;
+
+  constructor(id: number, title: string, status: TaskStatus) {
     this.id = id;
     this.title = title;
+    this.status = status;
   }
+}
+
+export enum TaskStatus {
+  InProgress,
+  Done,
 }
