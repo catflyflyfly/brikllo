@@ -1,12 +1,12 @@
 import { ApolloServer } from 'apollo-server';
 import 'reflect-metadata';
 import * as tq from 'type-graphql';
-import { Task } from './models';
-import { TaskResolver } from './resolvers';
+import { Task, TaskList } from './models';
+import { TaskListResolver } from './resolvers';
 
 export const app = async () => {
   const schema = await tq.buildSchema({
-    resolvers: [TaskResolver],
+    resolvers: [TaskListResolver],
     scalarsMap: [],
   });
 
@@ -17,9 +17,14 @@ export const app = async () => {
 };
 
 export interface Context {
-  tasks: Task[];
+  taskLists: TaskList[];
 }
 
 const context = {
-  tasks: [new Task(1), new Task(2)],
+  taskLists: [
+    new TaskList(1, 'Brikllo', [
+      new Task(1, 'Design mock APIs'),
+      new Task(2, 'Connect to DB'),
+    ]),
+  ],
 };
