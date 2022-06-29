@@ -36,6 +36,6 @@ export class Task {
 }
 
 export enum TaskStatus {
-  InProgress,
-  Done,
+  IN_PROGRESS = 'IN_PROGRESS',
+  DONE = 'DONE',
 }

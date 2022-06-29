@@ -30,14 +30,21 @@ export class TaskListResolver {
     @Arg('input') input: TaskListQueryInput,
     @Ctx() ctx: Context,
   ) {
-    return ctx.taskLists;
+    return ctx.prisma.taskList.findMany();
   }
 
   @FieldResolver(() => [Task])
-  tasks(
+  async tasks(
     @Arg('input') input: TaskQueryInput,
+    @Ctx() ctx: Context,
     @Root() taskList: TaskList,
-  ): Task[] {
-    return taskList.tasks.filter((task) => task.status === input.status);
+  ) {
+    return ctx.prisma.taskList
+      .findUnique({
+        where: { id: taskList.id || undefined },
+      })
+      ?.tasks({
+        where: { status: input.status },
+      });
   }
 }

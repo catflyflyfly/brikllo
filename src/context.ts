@@ -1,15 +1,11 @@
-import { Task, TaskList, TaskStatus } from './models';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export interface Context {
-  taskLists: TaskList[];
+  prisma: PrismaClient;
 }
 
 export const context = {
-  taskLists: [
-    new TaskList(1, 'Brikllo', [
-      new Task(1, 'Create GraqhQL Server', TaskStatus.Done),
-      new Task(2, 'Design mock APIs', TaskStatus.InProgress),
-      new Task(3, 'Connect to DB', TaskStatus.InProgress),
-    ]),
-  ],
+  prisma,
 };
