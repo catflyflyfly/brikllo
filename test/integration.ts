@@ -46,7 +46,7 @@ describe('brikllo', () => {
       expect(true).to.equal(true);
       expect(response.errors).to.be.undefined;
       expect(response.data?.taskLists).to.have.lengthOf(1);
-      expect(response.data?.taskLists[0]?.tasks).to.have.lengthOf(2);
+      expect(response.data?.taskLists[0]?.tasks).to.have.lengthOf(1);
     });
   });
 });
