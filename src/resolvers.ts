@@ -10,7 +10,7 @@ import {
 } from 'type-graphql';
 import { Context } from './context';
 import { Task, TaskList, TaskStatus } from './models';
-import service from './service';
+import service from './services';
 
 @InputType()
 export class TaskListQueryInput {
@@ -40,7 +40,7 @@ export class TaskListResolver {
     @Arg('input') input: TaskListQueryInput,
     @Ctx() ctx: Context,
   ) {
-    return service.getTaskLists(input, ctx);
+    return service.graphql.getTaskLists(input, ctx);
   }
 
   @FieldResolver(() => [Task])
@@ -49,7 +49,7 @@ export class TaskListResolver {
     @Root() taskList: TaskList,
     @Ctx() ctx: Context,
   ) {
-    return service.getTasksInTaskList(input, taskList, ctx);
+    return service.graphql.getTasksInTaskList(input, taskList, ctx);
   }
 }
 
@@ -57,6 +57,6 @@ export class TaskListResolver {
 export class TaskResolver {
   @Query(() => [Task])
   async tasks(@Arg('input') input: TaskQueryInput, @Ctx() ctx: Context) {
-    return service.getTasks(input, ctx);
+    return service.graphql.getTasks(input, ctx);
   }
 }

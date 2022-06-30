@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { expect } from 'chai';
 import Sinon from 'sinon';
+import fc from 'fast-check';
 
 import {
   TaskListQueryInput,
@@ -8,10 +9,9 @@ import {
   TaskQueryInput,
   TaskResolver,
 } from '../../src/resolvers';
-import service from '../../src/service';
+import service from '../../src/services';
 import { context } from '../../src/context';
-import fc from 'fast-check';
-import * as arbitrary from '../helpers/arbitrary';
+import * as arbitrary from '../helpers/arbitraries';
 
 describe('TaskListResolver', () => {
   let resolver: TaskListResolver;
@@ -28,7 +28,7 @@ describe('TaskListResolver', () => {
           async (serviceResponse) => {
             Sinon.restore();
             Sinon.replace(
-              service,
+              service.graphql,
               'getTaskLists',
               Sinon.fake.resolves(serviceResponse),
             );
@@ -54,7 +54,7 @@ describe('TaskListResolver', () => {
           async (serviceResponse, taskList) => {
             Sinon.restore();
             Sinon.replace(
-              service,
+              service.graphql,
               'getTasksInTaskList',
               Sinon.fake.resolves(serviceResponse),
             );
@@ -88,7 +88,7 @@ describe('TaskResolver', () => {
           async (serviceResponse) => {
             Sinon.restore();
             Sinon.replace(
-              service,
+              service.graphql,
               'getTasks',
               Sinon.fake.resolves(serviceResponse),
             );

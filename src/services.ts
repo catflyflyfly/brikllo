@@ -33,8 +33,12 @@ const getTasks = async (input: TaskQueryInput, ctx: Context) => {
   });
 };
 
-export default {
+const graphqlService = {
   getTaskLists,
   getTasksInTaskList,
   getTasks,
+};
+
+export default {
+  graphql: graphqlService,
 };
