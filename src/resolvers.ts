@@ -10,6 +10,7 @@ import {
 } from 'type-graphql';
 import { Context } from './context';
 import { Task, TaskList, TaskStatus } from './models';
+import service from './service';
 
 @InputType()
 export class TaskListQueryInput {
@@ -39,27 +40,16 @@ export class TaskListResolver {
     @Arg('input') input: TaskListQueryInput,
     @Ctx() ctx: Context,
   ) {
-    return ctx.prisma.taskList.findMany({
-      skip: input.skip,
-      take: input.take,
-    });
+    return service.getTaskLists(input, ctx);
   }
 
   @FieldResolver(() => [Task])
   async tasks(
     @Arg('input') input: TaskQueryInput,
-    @Ctx() ctx: Context,
     @Root() taskList: TaskList,
+    @Ctx() ctx: Context,
   ) {
-    return ctx.prisma.taskList
-      .findUnique({
-        where: { id: taskList.id || undefined },
-      })
-      ?.tasks({
-        where: { status: input.status },
-        skip: input.skip,
-        take: input.take,
-      });
+    return service.getTasksInTaskList(input, taskList, ctx);
   }
 }
 
@@ -67,10 +57,6 @@ export class TaskListResolver {
 export class TaskResolver {
   @Query(() => [Task])
   async tasks(@Arg('input') input: TaskQueryInput, @Ctx() ctx: Context) {
-    return ctx.prisma.task.findMany({
-      where: { status: input.status },
-      skip: input.skip,
-      take: input.take,
-    });
+    return service.getTasks(input, ctx);
   }
 }
