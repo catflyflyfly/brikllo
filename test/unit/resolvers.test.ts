@@ -1,12 +1,16 @@
 import 'reflect-metadata';
-import { expect } from 'chai';
+import * as chai from 'chai';
 import Sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import fc from 'fast-check';
 
 import { TaskListResolver, TaskResolver } from '../../src/graphql/resolvers';
 import service from '../../src/services';
 import { context } from '../../src/context';
 import * as arbitrary from '../helpers/arbitraries';
+
+const expect = chai.expect;
+chai.use(sinonChai);
 
 describe('TaskListResolver', () => {
   let resolver: TaskListResolver;
@@ -23,7 +27,7 @@ describe('TaskListResolver', () => {
           arbitrary.graphql.input.taskListQueryInput(),
           async (serviceResponse, input) => {
             Sinon.restore();
-            Sinon.replace(
+            const fake = Sinon.replace(
               service.graphql,
               'getTaskLists',
               Sinon.fake.resolves(serviceResponse),
@@ -32,6 +36,7 @@ describe('TaskListResolver', () => {
             const response = await resolver.taskLists(input, context);
 
             expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
           },
         ),
       );
@@ -47,7 +52,7 @@ describe('TaskListResolver', () => {
           arbitrary.graphql.model.taskList(),
           async (serviceResponse, input, taskList) => {
             Sinon.restore();
-            Sinon.replace(
+            const fake = Sinon.replace(
               service.graphql,
               'getTasksInTaskList',
               Sinon.fake.resolves(serviceResponse),
@@ -56,6 +61,7 @@ describe('TaskListResolver', () => {
             const response = await resolver.tasks(input, taskList, context);
 
             expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
           },
         ),
       );
@@ -78,7 +84,7 @@ describe('TaskResolver', () => {
           arbitrary.graphql.input.taskQueryInput(),
           async (serviceResponse, input) => {
             Sinon.restore();
-            Sinon.replace(
+            const fake = Sinon.replace(
               service.graphql,
               'getTasks',
               Sinon.fake.resolves(serviceResponse),
@@ -87,6 +93,7 @@ describe('TaskResolver', () => {
             const response = await resolver.tasks(input, context);
 
             expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
           },
         ),
       );
