@@ -1,4 +1,4 @@
-import { Field, InputType } from 'type-graphql';
+import { Field, InputType, Int } from 'type-graphql';
 import { OrderDirection, TaskOrderBy, TaskStatus } from './models';
 
 @InputType()
@@ -34,8 +34,8 @@ export class TaskListQueryInput {
   @Field({ nullable: true, defaultValue: 5 })
   take!: number;
 
-  @Field({ nullable: true })
-  idEq?: number;
+  @Field(() => [Int], { nullable: true })
+  idIn?: number[];
 }
 
 @InputType()
@@ -57,4 +57,7 @@ export class TaskQueryInput {
 
   @Field({ nullable: true })
   taskListIdEq?: number;
+
+  @Field(() => [Int], { nullable: true })
+  idIn?: number[];
 }
