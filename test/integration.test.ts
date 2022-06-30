@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { expect } from 'chai';
 import { GraphQLSchema, graphql } from 'graphql';
-import { buildAppSchema } from '../src/schema';
+import { buildAppSchema } from '../src/graphql/schema';
 import { context } from '../src/context';
 import { Maybe } from 'type-graphql';
 

@@ -1,12 +1,12 @@
 import { buildSchema, registerEnumType } from 'type-graphql';
 import { TaskStatus } from './models';
-import { TaskListResolver } from './resolvers';
+import { TaskListResolver, TaskResolver } from './resolvers';
 
 export const buildAppSchema = async () => {
   registerAllEnumTypes();
 
   return buildSchema({
-    resolvers: [TaskListResolver],
+    resolvers: [TaskListResolver, TaskResolver],
     scalarsMap: [],
   });
 };
