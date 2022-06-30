@@ -5,19 +5,27 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "npx dotenv -e .env.dev -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
+    
+    "test:unit": "ts-mocha test --file test/unit/*.test.ts",
     "test:integration": "npx dotenv -e .env.test -- ts-mocha test --file test/integration.test.ts",
+    
     "predev": "npm run dev:docker:up && npm run dev:db:setup",
     "postdev": "npm run dev:docker:down",
+    
     "pretest:integration": "npm run test:docker:up && npm run test:db:setup",
     "posttest:integration": "npm run test:docker:down",
+    
     "dev:docker:up": "docker-compose -f docker-compose.dev.yaml up -d",
     "dev:docker:down": "docker-compose -f docker-compose.dev.yaml down",
+    
     "test:docker:up": "docker-compose -f docker-compose.test.yaml up -d",
     "test:docker:down": "docker-compose -f docker-compose.test.yaml down",
+    
     "dev:db:setup": "npm run dev:db:reset",
     "dev:db:reset": "npx dotenv -e .env.dev -- npx prisma migrate reset --force",
     "dev:db:migrate": "npx dotenv -e .env.dev -- npx prisma migrate dev",
     "dev:db:seed": "npx dotenv -e .env.dev -- npx prisma db seed",
+    
     "test:db:setup": "npm run test:db:migrate && npm run test:db:seed",
     "test:db:migrate": "npx dotenv -e .env.test -- npx prisma migrate deploy",
     "test:db:seed": "npx dotenv -e .env.test -- npx prisma db seed"
@@ -27,6 +35,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.1",
+    "@types/sinon": "^10.0.12",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "chai": "^4.3.6",
@@ -42,6 +51,7 @@
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
+    "sinon": "^14.0.0",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.8.1",
     "ts-node-dev": "^2.0.0",
