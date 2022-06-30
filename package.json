@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npx dotenv -e .env.dev -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
     
-    "test:integration": "npx dotenv -e .env.test -- ts-mocha test --file test/integration.ts",
+    "test:integration": "npx dotenv -e .env.test -- ts-mocha test --file test/integration.test.ts",
     
     "predev": "npm run dev:docker:up && npm run dev:db:setup",
     "postdev": "npm run dev:docker:down",
