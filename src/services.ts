@@ -1,6 +1,7 @@
 import { Context } from './context';
-import { TaskList } from './graphql/models';
+import { TaskList, TaskStatus } from './graphql/models';
 import {
+  TaskCreateInput,
   TaskListCreateInput,
   TaskListQueryInput,
   TaskQueryInput,
@@ -51,9 +52,22 @@ const getTasks = async (input: TaskQueryInput, ctx: Context) => {
 const createTaskList = async (input: TaskListCreateInput, ctx: Context) => {
   return ctx.prisma.taskList.create({
     data: {
-      title: input.title,
       createdBy: 'hello',
       updatedBy: 'hello',
+      title: input.title,
+    },
+  });
+};
+
+const createTask = async (input: TaskCreateInput, ctx: Context) => {
+  return ctx.prisma.task.create({
+    data: {
+      createdBy: 'hello',
+      updatedBy: 'hello',
+      title: input.title,
+      status: TaskStatus.IN_PROGRESS,
+      taskListId: input.taskListId,
+      rank: '0000000000',
     },
   });
 };
@@ -63,6 +77,7 @@ const graphqlService = {
   getTasksInTaskList,
   getTasks,
   createTaskList,
+  createTask,
 };
 
 export default {

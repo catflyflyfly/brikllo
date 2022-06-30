@@ -123,4 +123,28 @@ describe('TaskResolver', () => {
       );
     });
   });
+
+  describe('.createTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskCreateInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'createTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.createTask(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
 });

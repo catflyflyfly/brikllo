@@ -9,6 +9,7 @@ import {
 } from 'type-graphql';
 import { Context } from '../context';
 import {
+  TaskCreateInput,
   TaskListCreateInput,
   TaskListQueryInput,
   TaskQueryInput,
@@ -50,5 +51,10 @@ export class TaskResolver {
   @Query(() => [Task])
   async tasks(@Arg('input') input: TaskQueryInput, @Ctx() ctx: Context) {
     return service.graphql.getTasks(input, ctx);
+  }
+
+  @Mutation(() => Task)
+  async createTask(@Arg('input') input: TaskCreateInput, @Ctx() ctx: Context) {
+    return service.graphql.createTask(input, ctx);
   }
 }

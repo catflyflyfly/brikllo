@@ -54,3 +54,11 @@ export const taskListCreateInput: () => fc.Arbitrary<input.TaskListCreateInput> 
         title,
       };
     });
+
+export const taskCreateInput: () => fc.Arbitrary<input.TaskCreateInput> = () =>
+  fc.tuple(fc.integer(), fc.string()).map(([taskListId, title]) => {
+    return {
+      taskListId,
+      title,
+    };
+  });

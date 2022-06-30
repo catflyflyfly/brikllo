@@ -1,5 +1,11 @@
 import { Field, InputType, Int } from 'type-graphql';
-import { OrderDirection, TaskList, TaskOrderBy, TaskStatus } from './models';
+import {
+  OrderDirection,
+  Task,
+  TaskList,
+  TaskOrderBy,
+  TaskStatus,
+} from './models';
 
 @InputType()
 export class TaskOrder {
@@ -64,6 +70,15 @@ export class TaskQueryInput {
 
 @InputType()
 export class TaskListCreateInput implements Partial<TaskList> {
+  @Field()
+  title!: string;
+}
+
+@InputType()
+export class TaskCreateInput implements Partial<Task> {
+  @Field()
+  taskListId!: number;
+
   @Field()
   title!: string;
 }
