@@ -1,8 +1,21 @@
-import { Arg, Ctx, FieldResolver, Query, Resolver, Root } from 'type-graphql';
+import {
+  Arg,
+  Ctx,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from 'type-graphql';
 import { Context } from '../context';
-import { TaskListQueryInput, TaskQueryInput } from './inputs';
+import {
+  TaskListCreateInput,
+  TaskListQueryInput,
+  TaskQueryInput,
+} from './inputs';
 import { Task, TaskList } from './models';
 import service from '../services';
+import { input } from '../../test/helpers/arbitraries/graphql';
 
 @Resolver(TaskList)
 export class TaskListResolver {
@@ -21,6 +34,14 @@ export class TaskListResolver {
     @Ctx() ctx: Context,
   ) {
     return service.graphql.getTasksInTaskList(input, taskList, ctx);
+  }
+
+  @Mutation(() => TaskList)
+  async createTaskList(
+    @Arg('input') input: TaskListCreateInput,
+    @Ctx() ctx: Context,
+  ) {
+    return service.graphql.createTaskList(input, ctx);
   }
 }
 

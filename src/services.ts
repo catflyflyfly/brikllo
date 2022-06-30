@@ -1,6 +1,10 @@
 import { Context } from './context';
 import { TaskList } from './graphql/models';
-import { TaskListQueryInput, TaskQueryInput } from './graphql/inputs';
+import {
+  TaskListCreateInput,
+  TaskListQueryInput,
+  TaskQueryInput,
+} from './graphql/inputs';
 
 const getTaskLists = async (input: TaskListQueryInput, ctx: Context) => {
   return ctx.prisma.taskList.findMany({
@@ -44,10 +48,21 @@ const getTasks = async (input: TaskQueryInput, ctx: Context) => {
   });
 };
 
+const createTaskList = async (input: TaskListCreateInput, ctx: Context) => {
+  return ctx.prisma.taskList.create({
+    data: {
+      title: input.title,
+      createdBy: 'hello',
+      updatedBy: 'hello',
+    },
+  });
+};
+
 const graphqlService = {
   getTaskLists,
   getTasksInTaskList,
   getTasks,
+  createTaskList,
 };
 
 export default {
