@@ -33,10 +33,19 @@ export class TaskListQueryInput {
 
   @Field({ nullable: true, defaultValue: 5 })
   take!: number;
+
+  @Field({ nullable: true })
+  idEq?: number;
 }
 
 @InputType()
 export class TaskQueryInput {
+  @Field({ nullable: true, defaultValue: 0 })
+  skip!: number;
+
+  @Field({ nullable: true, defaultValue: 5 })
+  take!: number;
+
   @Field(() => TaskStatus, { nullable: true })
   status?: TaskStatus;
 
@@ -46,9 +55,6 @@ export class TaskQueryInput {
   })
   order!: TaskOrder;
 
-  @Field({ nullable: true, defaultValue: 0 })
-  skip!: number;
-
-  @Field({ nullable: true, defaultValue: 5 })
-  take!: number;
+  @Field({ nullable: true })
+  taskListIdEq?: number;
 }
