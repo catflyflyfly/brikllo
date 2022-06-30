@@ -3,8 +3,7 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import fc from 'fast-check';
 
-import { TaskListQueryInput, TaskQueryInput } from '../../src/inputs';
-import { TaskListResolver, TaskResolver } from '../../src/resolvers';
+import { TaskListResolver, TaskResolver } from '../../src/graphql/resolvers';
 import service from '../../src/services';
 import { context } from '../../src/context';
 import * as arbitrary from '../helpers/arbitraries';
@@ -21,7 +20,8 @@ describe('TaskListResolver', () => {
       await fc.assert(
         fc.asyncProperty(
           fc.array(arbitrary.db.taskList()),
-          async (serviceResponse) => {
+          arbitrary.graphql.input.taskListQueryInput(),
+          async (serviceResponse, input) => {
             Sinon.restore();
             Sinon.replace(
               service.graphql,
@@ -29,10 +29,7 @@ describe('TaskListResolver', () => {
               Sinon.fake.resolves(serviceResponse),
             );
 
-            const response = await resolver.taskLists(
-              new TaskListQueryInput(),
-              context,
-            );
+            const response = await resolver.taskLists(input, context);
 
             expect(response).to.deep.equal(serviceResponse);
           },
@@ -46,8 +43,9 @@ describe('TaskListResolver', () => {
       await fc.assert(
         fc.asyncProperty(
           fc.array(arbitrary.db.task()),
-          arbitrary.model.taskList(),
-          async (serviceResponse, taskList) => {
+          arbitrary.graphql.input.taskQueryInput(),
+          arbitrary.graphql.model.taskList(),
+          async (serviceResponse, input, taskList) => {
             Sinon.restore();
             Sinon.replace(
               service.graphql,
@@ -55,11 +53,7 @@ describe('TaskListResolver', () => {
               Sinon.fake.resolves(serviceResponse),
             );
 
-            const response = await resolver.tasks(
-              new TaskQueryInput(),
-              taskList,
-              context,
-            );
+            const response = await resolver.tasks(input, taskList, context);
 
             expect(response).to.deep.equal(serviceResponse);
           },
@@ -81,7 +75,8 @@ describe('TaskResolver', () => {
       await fc.assert(
         fc.asyncProperty(
           fc.array(arbitrary.db.task()),
-          async (serviceResponse) => {
+          arbitrary.graphql.input.taskQueryInput(),
+          async (serviceResponse, input) => {
             Sinon.restore();
             Sinon.replace(
               service.graphql,
@@ -89,10 +84,7 @@ describe('TaskResolver', () => {
               Sinon.fake.resolves(serviceResponse),
             );
 
-            const response = await resolver.tasks(
-              new TaskQueryInput(),
-              context,
-            );
+            const response = await resolver.tasks(input, context);
 
             expect(response).to.deep.equal(serviceResponse);
           },

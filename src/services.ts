@@ -1,6 +1,6 @@
 import { Context } from './context';
-import { TaskList } from './models';
-import { TaskListQueryInput, TaskQueryInput } from './inputs';
+import { TaskList } from './graphql/models';
+import { TaskListQueryInput, TaskQueryInput } from './graphql/inputs';
 
 const getTaskLists = async (input: TaskListQueryInput, ctx: Context) => {
   return ctx.prisma.taskList.findMany({

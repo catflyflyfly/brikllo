@@ -1,4 +1,4 @@
 import * as db from './db';
-import * as model from './models';
+import * as graphql from './graphql';
 
-export { db, model };
+export { db, graphql };

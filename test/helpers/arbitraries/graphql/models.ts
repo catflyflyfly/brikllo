@@ -1,5 +1,5 @@
 import fc from 'fast-check';
-import * as model from '../../../src/models';
+import * as model from '../../../../src/graphql/models';
 
 export const taskList: () => fc.Arbitrary<model.TaskList> = () =>
   fc

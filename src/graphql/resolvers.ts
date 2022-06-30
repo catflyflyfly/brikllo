@@ -1,8 +1,8 @@
 import { Arg, Ctx, FieldResolver, Query, Resolver, Root } from 'type-graphql';
-import { Context } from './context';
+import { Context } from '../context';
 import { TaskListQueryInput, TaskQueryInput } from './inputs';
 import { Task, TaskList } from './models';
-import service from './services';
+import service from '../services';
 
 @Resolver(TaskList)
 export class TaskListResolver {
