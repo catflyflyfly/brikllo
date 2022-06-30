@@ -1,37 +1,8 @@
-import {
-  Arg,
-  Ctx,
-  Field,
-  FieldResolver,
-  InputType,
-  Query,
-  Resolver,
-  Root,
-} from 'type-graphql';
+import { Arg, Ctx, FieldResolver, Query, Resolver, Root } from 'type-graphql';
 import { Context } from './context';
-import { Task, TaskList, TaskStatus } from './models';
+import { TaskListQueryInput, TaskQueryInput } from './inputs';
+import { Task, TaskList } from './models';
 import service from './services';
-
-@InputType()
-export class TaskListQueryInput {
-  @Field({ nullable: true })
-  skip?: number;
-
-  @Field({ nullable: true })
-  take?: number;
-}
-
-@InputType()
-export class TaskQueryInput {
-  @Field(() => TaskStatus, { nullable: true })
-  status?: TaskStatus;
-
-  @Field({ nullable: true })
-  skip?: number;
-
-  @Field({ nullable: true })
-  take?: number;
-}
 
 @Resolver(TaskList)
 export class TaskListResolver {

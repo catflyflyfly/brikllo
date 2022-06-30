@@ -3,12 +3,8 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import fc from 'fast-check';
 
-import {
-  TaskListQueryInput,
-  TaskListResolver,
-  TaskQueryInput,
-  TaskResolver,
-} from '../../src/resolvers';
+import { TaskListQueryInput, TaskQueryInput } from '../../src/inputs';
+import { TaskListResolver, TaskResolver } from '../../src/resolvers';
 import service from '../../src/services';
 import { context } from '../../src/context';
 import * as arbitrary from '../helpers/arbitraries';
