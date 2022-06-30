@@ -24,6 +24,7 @@ async function main() {
             updatedBy,
             title: 'Create GraphQL Server',
             status: TaskStatus.DONE,
+            rank: '5000000000',
           },
           {
             id: 2,
@@ -31,6 +32,7 @@ async function main() {
             updatedBy,
             title: 'Design mock APIs',
             status: TaskStatus.DONE,
+            rank: '2500000000',
           },
           {
             id: 3,
@@ -38,6 +40,7 @@ async function main() {
             updatedBy,
             title: 'Connect to DB',
             status: TaskStatus.DONE,
+            rank: '1250000000',
           },
           {
             id: 4,
@@ -45,6 +48,7 @@ async function main() {
             updatedBy,
             title: 'Design mutation APIs',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0625000000',
           },
           {
             id: 5,
@@ -52,6 +56,7 @@ async function main() {
             updatedBy,
             title: 'Fine tuning',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0312500000',
           },
         ],
       },
@@ -73,6 +78,7 @@ async function main() {
             updatedBy,
             title: 'Pack my bag',
             status: TaskStatus.IN_PROGRESS,
+            rank: '5000000000',
           },
           {
             id: 7,
@@ -80,6 +86,7 @@ async function main() {
             updatedBy,
             title: 'Prepare food',
             status: TaskStatus.IN_PROGRESS,
+            rank: '2500000000',
           },
           {
             id: 8,
@@ -87,6 +94,7 @@ async function main() {
             updatedBy,
             title: 'Pin landmarks in the map',
             status: TaskStatus.DONE,
+            rank: '1250000000',
           },
           {
             id: 9,
@@ -94,6 +102,15 @@ async function main() {
             updatedBy,
             title: 'Clean my room',
             status: TaskStatus.DONE,
+            rank: '0625000000',
+          },
+          {
+            id: 10,
+            createdBy,
+            updatedBy,
+            title: 'Clean my room',
+            status: TaskStatus.DONE,
+            rank: '0312500000',
           },
         ],
       },
@@ -115,6 +132,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 1',
             status: TaskStatus.IN_PROGRESS,
+            rank: '5000000000',
           },
           {
             id: 12,
@@ -122,6 +140,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 2',
             status: TaskStatus.IN_PROGRESS,
+            rank: '2500000000',
           },
           {
             id: 13,
@@ -129,6 +148,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 3',
             status: TaskStatus.IN_PROGRESS,
+            rank: '1250000000',
           },
           {
             id: 14,
@@ -136,6 +156,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 4',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0625000000',
           },
           {
             id: 15,
@@ -143,6 +164,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 5',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0312500000',
           },
           {
             id: 16,
@@ -150,6 +172,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 6',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0156250000',
           },
           {
             id: 17,
@@ -157,6 +180,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 7',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0078125000',
           },
           {
             id: 18,
@@ -164,6 +188,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 8',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0039062500',
           },
           {
             id: 19,
@@ -171,6 +196,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 9',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0019531250',
           },
           {
             id: 20,
@@ -178,6 +204,7 @@ async function main() {
             updatedBy,
             title: 'Chapter 10',
             status: TaskStatus.IN_PROGRESS,
+            rank: '0009765625',
           },
         ],
       },

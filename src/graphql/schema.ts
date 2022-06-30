@@ -1,5 +1,5 @@
 import { buildSchema, registerEnumType } from 'type-graphql';
-import { TaskStatus } from './models';
+import { OrderDirection, TaskOrderBy, TaskStatus } from './models';
 import { TaskListResolver, TaskResolver } from './resolvers';
 
 export const buildAppSchema = async () => {
@@ -14,5 +14,11 @@ export const buildAppSchema = async () => {
 const registerAllEnumTypes = () => {
   registerEnumType(TaskStatus, {
     name: 'TaskStatus',
+  });
+  registerEnumType(TaskOrderBy, {
+    name: 'TaskOrderBy',
+  });
+  registerEnumType(OrderDirection, {
+    name: 'OrderDirection',
   });
 };
