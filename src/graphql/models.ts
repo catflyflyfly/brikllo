@@ -39,3 +39,12 @@ export enum TaskStatus {
   IN_PROGRESS = 'IN_PROGRESS',
   DONE = 'DONE',
 }
+
+export enum TaskOrderBy {
+  RANK = 'RANK',
+}
+
+export enum OrderDirection {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}

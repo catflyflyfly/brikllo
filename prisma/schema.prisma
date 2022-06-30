@@ -33,6 +33,7 @@ model Task {
   status              TaskStatus
   taskListId          Int
   taskList            TaskList      @relation(fields: [taskListId], references: [id])
+  rank                String
 }
 
 enum TaskStatus {

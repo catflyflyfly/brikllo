@@ -20,6 +20,7 @@ const getTasksInTaskList = async (
     })
     ?.tasks({
       where: { status: input.status },
+      orderBy: input.order.orderByValue(),
       skip: input.skip,
       take: input.take,
     });
@@ -28,6 +29,7 @@ const getTasksInTaskList = async (
 const getTasks = async (input: TaskQueryInput, ctx: Context) => {
   return ctx.prisma.task.findMany({
     where: { status: input.status },
+    orderBy: input.order.orderByValue(),
     skip: input.skip,
     take: input.take,
   });
