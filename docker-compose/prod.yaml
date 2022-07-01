@@ -1,0 +1,10 @@
+version: "3"
+services:
+  dev_postgres_db:
+    image: postgres:13.7-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: brikllo
+      POSTGRES_USER: user

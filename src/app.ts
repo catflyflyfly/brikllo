@@ -6,8 +6,8 @@ import { buildAppSchema } from './graphql/schema';
 export const app = async () => {
   const schema = await buildAppSchema();
 
-  new ApolloServer({ schema, context }).listen({ port: 4000 }, () =>
+  new ApolloServer({ schema, context }).listen({ port: process.env.PORT }, () =>
     console.log(`
-🚀 Server ready at: http://localhost:4000`),
+🚀 Server ready at: http://localhost:${process.env.PORT}`),
   );
 };

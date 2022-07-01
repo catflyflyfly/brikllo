@@ -1,6 +1,6 @@
 version: "3"
 services:
-  postgres_db:
+  dev_postgres_db:
     image: postgres:13.7-alpine
     ports:
       - "5433:5432"

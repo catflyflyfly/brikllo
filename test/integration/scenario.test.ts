@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { GraphQLSchema } from 'graphql';
-import { buildAppSchema } from '../src/graphql/schema';
-import { testSchema } from './helpers';
+import { buildAppSchema } from '../../src/graphql/schema';
+import { testSchema } from '../helpers';
 
 describe('Brikllo Test Scenarios', () => {
   let schema: GraphQLSchema;

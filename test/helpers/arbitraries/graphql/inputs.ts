@@ -4,10 +4,7 @@ import { orderDirection, taskOrderBy, taskStatus } from './models';
 
 export const taskOrder: () => fc.Arbitrary<input.TaskOrder> = () =>
   fc.tuple(taskOrderBy(), orderDirection()).map(([by, direction]) => {
-    return {
-      by,
-      direction,
-    };
+    return new input.TaskOrder(by, direction);
   });
 
 export const taskListQueryInput: () => fc.Arbitrary<input.TaskListQueryInput> =
