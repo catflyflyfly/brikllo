@@ -18,3 +18,11 @@ export const task: () => fc.Arbitrary<model.Task> = () =>
 export const taskStatus: () => fc.Arbitrary<model.TaskStatus> = () => {
   return fc.constantFrom(model.TaskStatus.DONE, model.TaskStatus.IN_PROGRESS);
 };
+
+export const taskOrderBy: () => fc.Arbitrary<model.TaskOrderBy> = () => {
+  return fc.constantFrom(model.TaskOrderBy.RANK);
+};
+
+export const orderDirection: () => fc.Arbitrary<model.OrderDirection> = () => {
+  return fc.constantFrom(model.OrderDirection.ASC, model.OrderDirection.DESC);
+};

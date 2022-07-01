@@ -67,6 +67,30 @@ describe('TaskListResolver', () => {
       );
     });
   });
+
+  describe('.createTaskList', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.taskList(),
+          arbitrary.graphql.input.taskListCreateInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'createTaskList',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.createTaskList(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
 });
 
 describe('TaskResolver', () => {
@@ -91,6 +115,78 @@ describe('TaskResolver', () => {
             );
 
             const response = await resolver.tasks(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
+
+  describe('.createTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskCreateInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'createTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.createTask(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
+
+  describe('.moveTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskMoveInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'moveTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.moveTask(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
+
+  describe('.updateTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskUpdateInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'updateTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.updateTask(input, context);
 
             expect(response).to.deep.equal(serviceResponse);
             expect(fake).to.have.callCount(1);

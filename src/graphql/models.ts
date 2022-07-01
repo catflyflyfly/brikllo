@@ -5,7 +5,7 @@ export class TaskList {
   @Field(() => ID)
   id: number;
 
-  @Field(() => String)
+  @Field()
   title: string;
 
   tasks: Task[];
