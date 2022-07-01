@@ -14,6 +14,7 @@ import {
   TaskListQueryInput,
   TaskMoveInput,
   TaskQueryInput,
+  TaskUpdateInput,
 } from './inputs';
 import { Task, TaskList } from './models';
 import service from '../services';
@@ -61,5 +62,10 @@ export class TaskResolver {
   @Mutation(() => Task)
   async moveTask(@Arg('input') input: TaskMoveInput, @Ctx() ctx: Context) {
     return service.graphql.moveTask(input, ctx);
+  }
+
+  @Mutation(() => Task)
+  async updateTask(@Arg('input') input: TaskUpdateInput, @Ctx() ctx: Context) {
+    return service.graphql.updateTask(input, ctx);
   }
 }

@@ -7,6 +7,7 @@ import {
   TaskListQueryInput,
   TaskMoveInput,
   TaskQueryInput,
+  TaskUpdateInput,
 } from '../graphql/inputs';
 import rankService from './rank';
 import * as db from '@prisma/client';
@@ -144,6 +145,24 @@ const moveTask = async (input: TaskMoveInput, ctx: Context) => {
   }
 };
 
+const updateTask = async (input: TaskUpdateInput, ctx: Context) => {
+  const task = await ctx.prisma.task.findFirst({
+    where: { id: input.id },
+  });
+
+  if (task === null) {
+    return Error('task not found');
+  }
+
+  return ctx.prisma.task.update({
+    where: { id: input.id },
+    data: {
+      title: input.title,
+      status: input.status,
+    },
+  });
+};
+
 const upsertRebalanceTasks = async (orderedTasks: db.Task[], ctx: Context) => {
   const newRanks = rankService.balancedRanks(orderedTasks.length);
 
@@ -173,6 +192,7 @@ const graphqlService = {
   createTaskList,
   createTask,
   moveTask,
+  updateTask,
 };
 
 export default {

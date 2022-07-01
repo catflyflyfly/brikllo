@@ -94,3 +94,15 @@ export class TaskMoveInput {
   @Field()
   position!: number;
 }
+
+@InputType()
+export class TaskUpdateInput implements Partial<Task> {
+  @Field()
+  id!: number;
+
+  @Field({ nullable: true })
+  title?: string;
+
+  @Field(() => TaskStatus, { nullable: true })
+  status?: TaskStatus;
+}
