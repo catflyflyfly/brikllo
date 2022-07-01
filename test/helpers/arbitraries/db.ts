@@ -26,6 +26,7 @@ export const task: () => fc.Arbitrary<db.Task> = () =>
       fc.string(),
       taskStatus(),
       fc.integer(),
+      fc.string(),
     )
     .map(
       ([
@@ -37,6 +38,7 @@ export const task: () => fc.Arbitrary<db.Task> = () =>
         title,
         status,
         taskListId,
+        rank,
       ]) => ({
         id,
         createdAt,
@@ -46,6 +48,7 @@ export const task: () => fc.Arbitrary<db.Task> = () =>
         title,
         status,
         taskListId,
+        rank,
       }),
     );
 

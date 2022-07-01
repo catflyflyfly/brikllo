@@ -30,6 +30,11 @@ export class TaskOrder {
         return 'desc';
     }
   };
+
+  constructor(by: TaskOrderBy, direction: OrderDirection) {
+    this.by = by;
+    this.direction = direction;
+  }
 }
 
 @InputType()
