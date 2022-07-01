@@ -16,7 +16,6 @@ import {
 } from './inputs';
 import { Task, TaskList } from './models';
 import service from '../services';
-import { input } from '../../test/helpers/arbitraries/graphql';
 
 @Resolver(TaskList)
 export class TaskListResolver {

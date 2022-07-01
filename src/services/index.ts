@@ -1,11 +1,12 @@
-import { Context } from './context';
-import { TaskList, TaskStatus } from './graphql/models';
+import { Context } from '../context';
+import { TaskList, TaskStatus } from '../graphql/models';
 import {
   TaskCreateInput,
   TaskListCreateInput,
   TaskListQueryInput,
   TaskQueryInput,
-} from './graphql/inputs';
+} from '../graphql/inputs';
+import rankService from './rank';
 
 const getTaskLists = async (input: TaskListQueryInput, ctx: Context) => {
   return ctx.prisma.taskList.findMany({
@@ -60,6 +61,18 @@ const createTaskList = async (input: TaskListCreateInput, ctx: Context) => {
 };
 
 const createTask = async (input: TaskCreateInput, ctx: Context) => {
+  const taskListTopRank = (
+    await ctx.prisma.task.findFirst({
+      where: { taskListId: input.taskListId },
+      orderBy: { rank: 'desc' },
+    })
+  )?.rank;
+
+  const newTopRank = rankService.getNewTopRank(taskListTopRank);
+
+  // TODO: handle case newTopRank is undefined, which means topRank is at limit
+  //          - findAll -> rebalanceAll -> upsertAll
+
   return ctx.prisma.task.create({
     data: {
       createdBy: 'hello',
@@ -67,7 +80,7 @@ const createTask = async (input: TaskCreateInput, ctx: Context) => {
       title: input.title,
       status: TaskStatus.IN_PROGRESS,
       taskListId: input.taskListId,
-      rank: '0000000000',
+      rank: newTopRank!,
     },
   });
 };
