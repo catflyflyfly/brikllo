@@ -147,4 +147,52 @@ describe('TaskResolver', () => {
       );
     });
   });
+
+  describe('.moveTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskMoveInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'moveTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.moveTask(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
+
+  describe('.updateTask', () => {
+    it('should always return response from service', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          arbitrary.db.task(),
+          arbitrary.graphql.input.taskUpdateInput(),
+          async (serviceResponse, input) => {
+            Sinon.restore();
+            const fake = Sinon.replace(
+              service.graphql,
+              'updateTask',
+              Sinon.fake.resolves(serviceResponse),
+            );
+
+            const response = await resolver.updateTask(input, context);
+
+            expect(response).to.deep.equal(serviceResponse);
+            expect(fake).to.have.callCount(1);
+          },
+        ),
+      );
+    });
+  });
 });

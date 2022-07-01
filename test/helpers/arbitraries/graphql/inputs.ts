@@ -62,3 +62,29 @@ export const taskCreateInput: () => fc.Arbitrary<input.TaskCreateInput> = () =>
       title,
     };
   });
+
+export const taskMoveInput: () => fc.Arbitrary<input.TaskMoveInput> = () =>
+  fc
+    .tuple(fc.integer(), fc.integer(), fc.integer())
+    .map(([taskId, taskListId, position]) => {
+      return {
+        taskId,
+        taskListId,
+        position,
+      };
+    });
+
+export const taskUpdateInput: () => fc.Arbitrary<input.TaskUpdateInput> = () =>
+  fc
+    .tuple(
+      fc.integer(),
+      fc.option(fc.string(), { nil: undefined }),
+      fc.option(taskStatus(), { nil: undefined }),
+    )
+    .map(([id, title, status]) => {
+      return {
+        id,
+        title,
+        status,
+      };
+    });
