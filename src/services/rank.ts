@@ -1,6 +1,7 @@
 import R from 'ramda';
 
-const RANK_SIZE = 10;
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const RANK_SIZE = parseInt(process.env.RANK_SIZE!);
 
 const MIN = ''.padStart(RANK_SIZE, '0');
 const MAX = ''.padStart(RANK_SIZE, '9');
