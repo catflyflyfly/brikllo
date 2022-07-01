@@ -15,11 +15,11 @@ describe('Brikllo Test Scenarios', () => {
       await testSchema({
         schema,
         query: `
-          query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
-            taskLists(input: $input) {
+          {
+            taskLists(input: {}) {
               id
               title
-              tasks(input: $tasksInput2) {
+              tasks(input: {}) {
                 id
                 title
                 status
@@ -27,10 +27,7 @@ describe('Brikllo Test Scenarios', () => {
             }
           }
         `,
-        variables: {
-          input: {},
-          tasksInput2: {},
-        },
+        variables: {},
         expectedResponse: `
           {
             "data": {
@@ -138,11 +135,11 @@ describe('Brikllo Test Scenarios', () => {
       await testSchema({
         schema,
         query: `
-          query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
-            taskLists(input: $input) {
+          query Query($taskListInput: TaskListQueryInput!, $tasksInput: TaskQueryInput!) {
+            taskLists(input: $taskListInput) {
               id
               title
-              tasks(input: $tasksInput2) {
+              tasks(input: $tasksInput) {
                 id
                 title
                 status
@@ -151,10 +148,10 @@ describe('Brikllo Test Scenarios', () => {
           }
         `,
         variables: {
-          input: {
+          taskListInput: {
             idIn: 1,
           },
-          tasksInput2: {
+          tasksInput: {
             status: 'IN_PROGRESS',
           },
         },
@@ -188,11 +185,11 @@ describe('Brikllo Test Scenarios', () => {
       await testSchema({
         schema,
         query: `
-          query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
-            taskLists(input: $input) {
+          query Query($taskListInput: TaskListQueryInput!, $tasksInput: TaskQueryInput!) {
+            taskLists(input: $taskListInput) {
               id
               title
-              tasks(input: $tasksInput2) {
+              tasks(input: $tasksInput) {
                 id
                 title
                 status
@@ -201,10 +198,10 @@ describe('Brikllo Test Scenarios', () => {
           }
         `,
         variables: {
-          input: {
+          taskListInput: {
             idIn: 3,
           },
-          tasksInput2: {
+          tasksInput: {
             order: {
               by: 'RANK',
               direction: 'ASC',
@@ -580,11 +577,11 @@ describe('Brikllo Test Scenarios', () => {
       await testSchema({
         schema,
         query: `
-          query Query($input: TaskListQueryInput!, $tasksInput2: TaskQueryInput!) {
-            taskLists(input: $input) {
+          query Query($tasksInput: TaskQueryInput!) {
+            taskLists(input: {}) {
               id
               title
-              tasks(input: $tasksInput2) {
+              tasks(input: $tasksInput) {
                 id
                 title
                 status
@@ -593,8 +590,7 @@ describe('Brikllo Test Scenarios', () => {
           }
         `,
         variables: {
-          input: {},
-          tasksInput2: {
+          tasksInput: {
             status: 'IN_PROGRESS',
           },
         },
