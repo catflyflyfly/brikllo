@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "npx dotenv -e env/.env.dev -- ts-node-dev --no-notify --respawn --transpile-only src/index.ts",
+    "test": "npm run test:unit && npm run test:integration",
     "test:unit": "ts-mocha test/unit --config mocharc/.unit.json",
     "test:integration": "npx dotenv -e env/.env.test -- ts-mocha test/integration --config mocharc/.integration.json || npm run posttest:integration",
     "predev": "npm run dev:docker:up && npm run dev:db:setup",
