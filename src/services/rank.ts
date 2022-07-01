@@ -1,3 +1,5 @@
+import R from 'ramda';
+
 const RANK_SIZE = 10;
 
 const MIN = ''.padStart(RANK_SIZE, '0');
@@ -25,6 +27,18 @@ const getNewTopRank = (currentTopRank?: string) => {
   return averageRank;
 };
 
+const balancedRanks = (rankCount: number) => {
+  const maxNum = parseInt(MAX) + 1;
+
+  const newMinRank = Math.round(maxNum / (rankCount + 1));
+
+  return R.range(0, rankCount)
+    .reverse()
+    .map(R.add(1))
+    .map(R.multiply(newMinRank))
+    .map(toRank);
+};
+
 export default {
   RANK_SIZE,
   MIN,
@@ -32,4 +46,5 @@ export default {
   average,
   toRank,
   getNewTopRank,
+  balancedRanks,
 };

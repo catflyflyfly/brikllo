@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import * as chai from 'chai';
 import fc from 'fast-check';
+import R from 'ramda';
 
 import rankService from '../../../src/services/rank';
 
@@ -132,6 +133,44 @@ describe('Rank Service', () => {
       it('should return undefined', () => {
         expect(rankService.getNewTopRank(rankService.MAX)).to.be.undefined;
       });
+    });
+  });
+
+  describe('balancedRanks', () => {
+    it('should return array of same size as before', () => {
+      fc.assert(
+        fc.property(
+          fc.nat().filter((n) => n < 1000),
+          (rankCount) => {
+            expect(rankService.balancedRanks(rankCount).length).to.equal(
+              rankCount,
+            );
+          },
+        ),
+      );
+    });
+
+    it('should return array which each element distance is roughly the same', () => {
+      fc.assert(
+        fc.property(
+          fc.nat().filter((n) => n > 0 && n < 1000),
+          (rankCount) => {
+            const rebalancedRanks = rankService.balancedRanks(rankCount);
+
+            const distances = R.zip(
+              [rankService.MAX, ...rebalancedRanks].map((n) => parseInt(n)),
+              [...rebalancedRanks, rankService.MIN].map((n) => parseInt(n)),
+            )
+              .map(([a, b]) => a - b)
+              .map(Math.abs);
+
+            const max = R.apply(Math.max, distances);
+            const min = R.apply(Math.max, distances);
+
+            expect(max).to.equal(min);
+          },
+        ),
+      );
     });
   });
 });
