@@ -27,6 +27,22 @@ const getNewTopRank = (currentTopRank?: string) => {
   return averageRank;
 };
 
+const getMovedRank = (ranks: string[], position: number) => {
+  if (ranks.length === 0) {
+    return average(MIN, MAX);
+  }
+
+  const boundedRanks = [MAX, ...ranks, MIN];
+
+  if (position > ranks.length) {
+    return average(boundedRanks[ranks.length], MIN);
+  } else if (position < 0) {
+    return average(boundedRanks[0], boundedRanks[1]);
+  } else {
+    return average(boundedRanks[position], boundedRanks[position + 1]);
+  }
+};
+
 const balancedRanks = (rankCount: number) => {
   const maxNum = parseInt(MAX) + 1;
 
@@ -47,4 +63,5 @@ export default {
   toRank,
   getNewTopRank,
   balancedRanks,
+  getMovedRank,
 };

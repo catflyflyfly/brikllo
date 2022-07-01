@@ -82,3 +82,15 @@ export class TaskCreateInput implements Partial<Task> {
   @Field()
   title!: string;
 }
+
+@InputType()
+export class TaskMoveInput {
+  @Field()
+  taskId!: number;
+
+  @Field()
+  taskListId!: number;
+
+  @Field()
+  position!: number;
+}

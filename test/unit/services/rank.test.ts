@@ -136,6 +136,43 @@ describe('Rank Service', () => {
     });
   });
 
+  describe('getMovedRank', () => {
+    it('should return rank with length of RANK_SIZE', () => {
+      fc.assert(
+        fc.property(
+          fc.nat().filter((n) => n < 1000),
+          fc.integer(),
+          (rankCount, position) => {
+            const ranks = rankService.balancedRanks(rankCount);
+            const newRank = rankService.getMovedRank(ranks, position);
+
+            expect(newRank).to.have.lengthOf(rankService.RANK_SIZE);
+            expect(Number(newRank)).to.not.be.NaN;
+          },
+        ),
+      );
+    });
+
+    it('should return rank coincide with moved order', () => {
+      fc.assert(
+        fc.property(
+          fc.nat().filter((n) => n < 1000),
+          fc.integer(),
+          (rankCount, position) => {
+            const ranks = rankService.balancedRanks(rankCount);
+            const newRank = rankService.getMovedRank(ranks, position);
+
+            ranks.splice(position < 0 ? 0 : position, 0, newRank);
+
+            const sortedRanks = R.sortBy(R.identity, ranks).reverse();
+
+            expect(sortedRanks).to.be.deep.equal(ranks);
+          },
+        ),
+      );
+    });
+  });
+
   describe('balancedRanks', () => {
     it('should return array of same size as before', () => {
       fc.assert(
