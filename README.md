@@ -11,10 +11,16 @@ Simple task list app with GraphQL API
 
 ## Prereqs
 
-- npm
+- node (v18.4.0), npm
 - docker (with docker-compose)
 
 ## Development
+
+Initialize node_modules with:
+
+```bash
+npm install
+```
 
 To start development server:
 
@@ -56,16 +62,16 @@ Create a env prod file:
 cp .env.dev .env.prod
 ```
 
-Run postgres db with:
-
-```bash
-docker-compose -f docker-compose/prod.yaml up
-```
-
 Build the server with:
 
 ```bash
 npm run build
+```
+
+Run postgres db with:
+
+```bash
+POSTGRES_PASSWORD=passwordpassword docker-compose -f docker-compose/prod.yaml up -d
 ```
 
 Start the server with:
