@@ -9,6 +9,8 @@ Simple task list app with GraphQL API
   - [Usage](#usage)
   - [License](#license)
 
+For most use cases, see `test/integration/scenario.test.ts` for how to use this app.
+
 ## Prereqs
 
 - node (v18.4.0), npm
