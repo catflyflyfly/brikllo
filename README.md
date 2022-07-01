@@ -6,6 +6,7 @@ Simple task list app with GraphQL API
   - [Prereqs](#prereqs)
   - [Development](#development)
   - [Test](#test)
+  - [Usage](#usage)
   - [License](#license)
 
 ## Prereqs
@@ -45,6 +46,32 @@ Run only integration test:
 
 ```bash
 npm run test:integration
+```
+
+## Usage
+
+Create a env prod file:
+
+```bash
+cp .env.dev .env.prod
+```
+
+Run postgres db with:
+
+```bash
+docker-compose -f docker-compose/prod.yaml up
+```
+
+Build the server with:
+
+```bash
+npm run build
+```
+
+Start the server with:
+
+```bash
+export $(cat env/.env.prod | xargs) && npm run start
 ```
 
 ## License
